@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -16,6 +16,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderService } from '../../core/services/loader.service.ts.service';
 import { AuthResponse, User } from '../../shared/interfaces/userInterfaces/user.intrface';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,6 @@ import { AuthResponse, User } from '../../shared/interfaces/userInterfaces/user.
     MatCheckboxModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    HttpClientModule,
   ],
   templateUrl: 'login.component.html',
   styleUrl: 'login.component.css',
