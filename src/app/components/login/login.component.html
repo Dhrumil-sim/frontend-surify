@@ -1,1 +1,122 @@
-<p>login works!</p>
+<!-- login.component.html -->
+<div class="login-container">
+  <!-- Background decoration (optional) -->
+  <div class="background-decoration"></div>
+
+  <mat-card class="login-card" [ngClass]="{ 'login-card-loading': isComponentLoading }">
+    <!-- Header with app branding -->
+    <mat-card-header class="login-header">
+      <div class="brand-section">
+        <mat-icon class="brand-icon">music_note</mat-icon>
+        <mat-card-title class="brand-title">Welcome Back</mat-card-title>
+        <mat-card-subtitle class="brand-subtitle">Sign in to your music world</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="login-content">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Email address</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="Enter your email" autocomplete="email" />
+          <mat-icon matPrefix class="field-icon">email</mat-icon>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')"> Email is required </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')"> Please enter a valid email address </mat-error>
+        </mat-form-field>
+
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            placeholder="Enter your password"
+            autocomplete="current-password" />
+          <mat-icon matPrefix class="field-icon">lock</mat-icon>
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            type="button"
+            class="password-toggle"
+            [attr.aria-label]="'Hide password'">
+            <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')"> Password is required </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+            Password must be at least 6 characters
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Login Button -->
+        <div class="button-section">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="loginForm.invalid || isComponentLoading"
+            class="login-button">
+            <mat-icon *ngIf="isComponentLoading" class="loading-icon">refresh</mat-icon>
+            <span>{{ isComponentLoading ? 'Signing in...' : 'Sign In' }}</span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider">
+          <span class="divider-text">or</span>
+        </div>
+      </form>
+
+      <!-- Error Display -->
+      <mat-card *ngIf="errorMessage" class="error-card">
+        <mat-card-content class="error-content">
+          <div class="error-header">
+            <mat-icon color="warn" class="error-icon">error_outline</mat-icon>
+            <span class="error-title">Authentication Failed</span>
+          </div>
+          <p class="error-message">{{ errorMessage }}</p>
+          <button mat-button color="primary" (click)="clearError()" class="error-dismiss">Dismiss</button>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Success Message -->
+      <mat-card *ngIf="successMessage" class="success-card">
+        <mat-card-content class="success-content">
+          <div class="success-header">
+            <mat-icon color="primary" class="success-icon">check_circle_outline</mat-icon>
+            <span class="success-title">Welcome!</span>
+          </div>
+          <p class="success-message">{{ successMessage }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- API Response (Development Only) -->
+      <mat-expansion-panel *ngIf="apiResponse && isDevelopment" class="debug-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="debug-icon">code</mat-icon>
+            API Response (Debug)
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <pre class="debug-content">{{ apiResponse | json }}</pre>
+      </mat-expansion-panel>
+    </mat-card-content>
+
+    <!-- Footer -->
+    <mat-card-actions class="login-footer">
+      <div class="footer-content">
+        <span class="footer-text">Don't have an account?</span>
+        <button mat-button color="primary" class="signup-link">Sign up</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Component Level Loader Overlay -->
+  <div class="loader-overlay" *ngIf="isComponentLoading">
+    <div class="loader-content">
+      <mat-spinner diameter="40" color="primary"></mat-spinner>
+      <p class="loader-text">{{ loadingMessage || 'Authenticating...' }}</p>
+    </div>
+  </div>
+</div>
