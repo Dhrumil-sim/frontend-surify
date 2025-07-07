@@ -1,1 +1,27 @@
-<p>side-bar works!</p>
+<mat-sidenav-container class="sidebar-container">
+  <mat-sidenav [opened]="isExpanded" mode="side" class="sidebar" [style.width]="isExpanded ? '250px' : '60px'">
+    <div class="sidebar-header">
+      <button mat-icon-button (click)="toggleSidebar()" class="toggle-btn">
+        <mat-icon>{{ isExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </button>
+    </div>
+
+    <mat-nav-list class="nav-list">
+      <mat-list-item *ngFor="let item of menuItems" class="nav-item" (click)="onMenuItemClick(item)">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle *ngIf="isExpanded">{{ item.label }}</span>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <div class="sidebar-footer" *ngIf="isExpanded">
+      <mat-divider></mat-divider>
+      <div class="footer-content">
+        <p class="version">Version 1.0.0</p>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- Content will be handled by router-outlet in parent component -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

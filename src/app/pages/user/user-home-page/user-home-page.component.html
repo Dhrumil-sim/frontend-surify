@@ -1,4 +1,11 @@
-<p>user-home-page works!</p>
-<app-side-bar></app-side-bar>
-<app-user-header></app-user-header>
-<router-outlet></router-outlet>
+<div class="user-home-container">
+  <app-user-header></app-user-header>
+
+  <div class="main-content">
+    <app-side-bar></app-side-bar>
+
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

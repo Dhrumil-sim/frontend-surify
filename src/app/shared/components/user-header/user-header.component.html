@@ -1,1 +1,72 @@
-<p>user-header works!</p>
+<mat-toolbar color="primary" class="user-header px-4 py-2 shadow-md">
+  <div class="header-content flex items-center justify-between w-full">
+    <!-- Logo Section -->
+    <div class="logo-section flex items-center gap-2">
+      <mat-icon>home</mat-icon>
+      <span class="app-name text-lg font-semibold text-white">Your App</span>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section flex-1 max-w-md mx-8">
+      <mat-form-field appearance="outline" class="search-field w-full">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search..." />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- User Actions -->
+    <div class="user-actions flex items-center gap-4">
+      <!-- Notifications -->
+      <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
+        <mat-icon matBadge="3" matBadgeColor="warn">notifications</mat-icon>
+      </button>
+
+      <mat-menu #notificationMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>notification_important</mat-icon>
+          <span>New message received</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>update</mat-icon>
+          <span>System update available</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>person_add</mat-icon>
+          <span>New user registered</span>
+        </button>
+      </mat-menu>
+
+      <!-- User Menu -->
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu" class="w-64">
+        <div class="user-info px-4 py-2 flex items-center gap-3">
+          <div class="user-avatar text-3xl text-primary">
+            <mat-icon>account_circle</mat-icon>
+          </div>
+          <div class="user-details text-sm">
+            <div class="user-name font-medium">{{ user.name }}</div>
+            <div class="user-email text-gray-500">{{ user.email }}</div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="onProfile()">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item (click)="onSettings()">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="onLogout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
