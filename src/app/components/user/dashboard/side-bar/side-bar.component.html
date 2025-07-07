@@ -1,27 +1,25 @@
-<mat-sidenav-container class="sidebar-container">
-  <mat-sidenav [opened]="isExpanded" mode="side" class="sidebar" [style.width]="isExpanded ? '250px' : '60px'">
-    <div class="sidebar-header">
-      <button mat-icon-button (click)="toggleSidebar()" class="toggle-btn">
-        <mat-icon>{{ isExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
-      </button>
-    </div>
+<div class="flex flex-col h-full bg-white shadow-md">
+  <!-- Sidebar Toggle Button -->
+  <div class="flex items-center justify-end p-2 border-b">
+    <button mat-icon-button (click)="toggleSidebar()">
+      <mat-icon>{{ isExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+    </button>
+  </div>
 
-    <mat-nav-list class="nav-list">
-      <mat-list-item *ngFor="let item of menuItems" class="nav-item" (click)="onMenuItemClick(item)">
-        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-        <span matListItemTitle *ngIf="isExpanded">{{ item.label }}</span>
-      </mat-list-item>
-    </mat-nav-list>
+  <!-- Navigation Menu -->
+  <mat-nav-list class="flex-1">
+    <mat-list-item
+      *ngFor="let item of menuItems"
+      (click)="onMenuItemClick(item.route)"
+      class="cursor-pointer hover:bg-gray-100 transition duration-200">
+      <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+      <span *ngIf="isExpanded" class="ml-2">{{ item.label }}</span>
+    </mat-list-item>
+  </mat-nav-list>
 
-    <div class="sidebar-footer" *ngIf="isExpanded">
-      <mat-divider></mat-divider>
-      <div class="footer-content">
-        <p class="version">Version 1.0.0</p>
-      </div>
-    </div>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <!-- Content will be handled by router-outlet in parent component -->
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  <!-- Footer Section -->
+  <div *ngIf="isExpanded" class="border-t p-4 text-sm text-gray-600">
+    <mat-divider></mat-divider>
+    <div class="mt-2">Version 1.0.0</div>
+  </div>
+</div>
