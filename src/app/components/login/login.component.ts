@@ -17,6 +17,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderService } from '../../core/services/loader.service.ts.service';
 import { AuthResponse, User } from '../../shared/interfaces/userInterfaces/user.intrface';
 import { HttpClient } from '@angular/common/http';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,7 @@ import { HttpClient } from '@angular/common/http';
     MatCheckboxModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    MatDivider,
   ],
   templateUrl: 'login.component.html',
   styleUrl: 'login.component.css',
