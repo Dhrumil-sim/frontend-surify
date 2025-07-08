@@ -1,22 +1,35 @@
 <mat-sidenav-container class="sidebar-container">
-  <mat-sidenav [opened]="isExpanded" mode="side" class="sidebar" [style.width]="isExpanded ? '250px' : '60px'">
+  <mat-sidenav [opened]="isExpanded" mode="side" class="sidebar" [style.width]="isExpanded ? '280px' : '64px'">
+    <!-- Sidebar Header -->
     <div class="sidebar-header">
+      <div class="logo-section" *ngIf="isExpanded">
+        <mat-icon class="logo-icon">music_note</mat-icon>
+        <span class="app-name">Surify</span>
+      </div>
       <button mat-icon-button (click)="toggleSidebar()" class="toggle-btn">
         <mat-icon>{{ isExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
       </button>
     </div>
 
+    <!-- Navigation List -->
     <mat-nav-list class="nav-list">
-      <mat-list-item *ngFor="let item of menuItems" class="nav-item" (click)="onMenuItemClick(item)">
-        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-        <span matListItemTitle *ngIf="isExpanded">{{ item.label }}</span>
+      <mat-list-item
+        *ngFor="let item of menuItems"
+        class="nav-item"
+        [class.active]="item.active"
+        (click)="onMenuItemClick(item)"
+        [attr.aria-label]="item.label">
+        <mat-icon matListItemIcon [class.active-icon]="item.active">{{ item.icon }}</mat-icon>
+        <span matListItemTitle *ngIf="isExpanded" [class.active-text]="item.active">{{ item.label }}</span>
       </mat-list-item>
     </mat-nav-list>
 
+    <!-- Sidebar Footer -->
     <div class="sidebar-footer" *ngIf="isExpanded">
       <mat-divider></mat-divider>
       <div class="footer-content">
-        <p class="version">Version 1.0.0</p>
+        <p class="version">Surify v1.0.0</p>
+        <p class="tagline">Your Music, Your Way</p>
       </div>
     </div>
   </mat-sidenav>

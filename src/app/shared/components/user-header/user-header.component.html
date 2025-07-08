@@ -1,55 +1,65 @@
-<mat-toolbar color="primary" class="user-header px-4 py-2 shadow-md">
-  <div class="header-content flex items-center justify-between w-full">
+<mat-toolbar class="user-header">
+  <div class="header-content">
     <!-- Logo Section -->
-    <div class="logo-section flex items-center gap-2">
-      <mat-icon>home</mat-icon>
-      <span class="app-name text-lg font-semibold text-white">Your App</span>
+    <div class="logo-section">
+      <mat-icon class="logo-icon">music_note</mat-icon>
+      <span class="app-name">Surify</span>
     </div>
 
     <!-- Search Section -->
-    <div class="search-section flex-1 max-w-md mx-8">
-      <mat-form-field appearance="outline" class="search-field w-full">
-        <mat-label>Search</mat-label>
-        <input matInput placeholder="Search..." />
-        <mat-icon matSuffix>search</mat-icon>
+    <div class="search-section">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search songs, artists, albums...</mat-label>
+        <input matInput [(ngModel)]="searchQuery" (keyup.enter)="onSearch()" placeholder="Search..." />
+        <mat-icon matSuffix (click)="onSearch()">search</mat-icon>
       </mat-form-field>
     </div>
 
     <!-- User Actions -->
-    <div class="user-actions flex items-center gap-4">
+    <div class="user-actions">
       <!-- Notifications -->
-      <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
-        <mat-icon matBadge="3" matBadgeColor="warn">notifications</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="notificationMenu" class="action-btn">
+        <mat-icon matBadge="2" matBadgeColor="warn">notifications</mat-icon>
       </button>
 
-      <mat-menu #notificationMenu="matMenu">
+      <mat-menu #notificationMenu="matMenu" class="notification-menu">
+        <div class="menu-header">
+          <h3>Notifications</h3>
+        </div>
+        <mat-divider></mat-divider>
         <button mat-menu-item>
-          <mat-icon>notification_important</mat-icon>
-          <span>New message received</span>
+          <mat-icon>music_note</mat-icon>
+          <span>New album from your favorite artist</span>
         </button>
         <button mat-menu-item>
-          <mat-icon>update</mat-icon>
-          <span>System update available</span>
+          <mat-icon>group</mat-icon>
+          <span>Collaborative session invitation</span>
         </button>
         <button mat-menu-item>
-          <mat-icon>person_add</mat-icon>
-          <span>New user registered</span>
+          <mat-icon>favorite</mat-icon>
+          <span>New playlist shared with you</span>
         </button>
       </mat-menu>
 
       <!-- User Menu -->
-      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="action-btn">
         <mat-icon>account_circle</mat-icon>
       </button>
 
-      <mat-menu #userMenu="matMenu" class="w-64">
-        <div class="user-info px-4 py-2 flex items-center gap-3">
-          <div class="user-avatar text-3xl text-primary">
-            <mat-icon>account_circle</mat-icon>
+      <mat-menu #userMenu="matMenu" class="user-menu">
+        <div class="user-info">
+          <div class="user-avatar">
+            <mat-icon *ngIf="!getUserAvatar() || avatarError">account_circle</mat-icon>
+            <img
+              *ngIf="getUserAvatar() && !avatarError"
+              [src]="getUserAvatar()"
+              alt="Profile"
+              class="avatar-image"
+              (error)="onImageError($event)" />
           </div>
-          <div class="user-details text-sm">
-            <div class="user-name font-medium">{{ user.name }}</div>
-            <div class="user-email text-gray-500">{{ user.email }}</div>
+          <div class="user-details">
+            <div class="user-name">{{ getUserDisplayName() }}</div>
+            <div class="user-email">{{ getUserEmail() }}</div>
           </div>
         </div>
         <mat-divider></mat-divider>

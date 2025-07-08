@@ -36,12 +36,31 @@
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+}
 
-  .app-name {
-    font-size: 18px;
-    font-weight: 500;
-  }
+.logo-icon {
+  color: #6366f1;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.app-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+.toggle-btn {
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+  color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.04);
 }
 
 .search-section {
@@ -92,71 +111,109 @@
     }
   }
 }
+
+/* Sidebar Container */
 .sidebar-container {
   height: 100%;
   width: 100%;
 }
 
+/* Sidebar */
 .sidebar {
-  border-right: 1px solid #e0e0e0;
-  transition: width 0.3s ease;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-
-  .sidebar-header {
-    display: flex;
-    justify-content: flex-end;
-    padding: 8px;
-    border-bottom: 1px solid #e0e0e0;
-
-    .toggle-btn {
-      transition: transform 0.3s ease;
-    }
-  }
-
-  .nav-list {
-    padding: 16px 0;
-
-    .nav-item {
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin: 4px 8px;
-      border-radius: 8px;
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
-      }
-
-      .mat-icon {
-        color: #666;
-        margin-right: 16px;
-      }
-
-      span {
-        color: #333;
-        font-weight: 400;
-      }
-    }
-  }
-
-  .sidebar-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px;
-
-    .footer-content {
-      text-align: center;
-
-      .version {
-        color: #999;
-        font-size: 12px;
-        margin: 0;
-      }
-    }
-  }
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Sidebar Header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #f3f4f6;
+  background: #fafafa;
+}
+
+/* Navigation List */
+.nav-list {
+  padding: 16px 0;
+  overflow-y: auto;
+  height: calc(100% - 140px);
+}
+
+.nav-item {
+  margin: 4px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 48px;
+}
+
+.nav-item:hover {
+  background-color: rgba(99, 102, 241, 0.04);
+  transform: translateX(4px);
+}
+
+.nav-item.active {
+  background-color: rgba(99, 102, 241, 0.08);
+  border-left: 3px solid #6366f1;
+}
+
+.nav-item mat-icon {
+  color: #6b7280;
+  margin-right: 16px;
+  transition: color 0.2s ease;
+}
+
+.nav-item.active mat-icon {
+  color: #6366f1;
+}
+
+.nav-item span {
+  color: #1f2937;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.nav-item.active span {
+  color: #6366f1;
+  font-weight: 600;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: #fafafa;
+  border-top: 1px solid #f3f4f6;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.version {
+  color: #6b7280;
+  font-size: 12px;
+  margin: 0 0 4px 0;
+  font-weight: 500;
+}
+
+.tagline {
+  color: #9ca3af;
+  font-size: 11px;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .header-content {
     padding: 0 8px;
@@ -169,4 +226,44 @@
   .logo-section .app-name {
     display: none;
   }
+
+  .sidebar {
+    width: 100% !important;
+    max-width: 320px;
+  }
+
+  .nav-item {
+    margin: 2px 8px;
+  }
+
+  .sidebar-header {
+    padding: 12px;
+  }
+}
+
+/* Animation for collapsed state */
+.sidebar:not(.mat-drawer-opened) .nav-item {
+  justify-content: center;
+}
+
+.sidebar:not(.mat-drawer-opened) .nav-item mat-icon {
+  margin-right: 0;
+}
+
+/* Scrollbar Styling */
+.nav-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.nav-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nav-list::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+.nav-list::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }
