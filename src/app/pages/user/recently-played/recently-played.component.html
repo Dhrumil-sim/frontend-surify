@@ -1,0 +1,32 @@
+<div class="recently-played-container">
+  <h1 class="title">Recently Played</h1>
+
+  <div *ngIf="loading" class="loader">Loading...</div>
+  <div *ngIf="error && !loading" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && !error && history.length === 0" class="empty-state">
+    <mat-icon class="empty-icon">history</mat-icon>
+    <p>No recently played songs yet!</p>
+  </div>
+
+  <div *ngIf="!loading && history.length > 0" class="history-grid">
+    <app-song-card *ngFor="let record of history" [song]="record.songId" (play)="onPlay(record.songId)">
+      <div class="played-at" slot="footer">
+        <span>{{ record.playedAt | date: 'short' }}</span>
+        <button mat-icon-button (click)="onDelete(record)" aria-label="Remove from history">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </app-song-card>
+  </div>
+
+  <mat-paginator
+    *ngIf="total > limit"
+    [length]="total"
+    [pageSize]="limit"
+    [pageIndex]="page - 1"
+    [pageSizeOptions]="[6, 12, 24, 48]"
+    (page)="onPageChange($event)"
+    class="pagination">
+  </mat-paginator>
+</div>

@@ -1,0 +1,20 @@
+<div class="playlist-list-container">
+  <h2>Your Playlists</h2>
+  <div *ngIf="isLoading" class="loading">Loading playlists...</div>
+  <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+  <div class="playlist-grid" *ngIf="!isLoading && playlists.length">
+    <mat-card *ngFor="let playlist of playlists" class="playlist-card">
+      <img *ngIf="playlist.coverImage" [src]="playlist.coverImage" alt="Cover" class="playlist-cover" />
+      <div class="playlist-info">
+        <h3>{{ playlist.name }}</h3>
+        <p>{{ playlist.description }}</p>
+      </div>
+      <div class="playlist-actions">
+        <button mat-icon-button color="primary" (click)="onView(playlist)"><mat-icon>visibility</mat-icon></button>
+        <button mat-icon-button color="accent" (click)="onEdit(playlist)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="onDelete(playlist)"><mat-icon>delete</mat-icon></button>
+      </div>
+    </mat-card>
+  </div>
+  <div *ngIf="!isLoading && !playlists.length && !errorMsg" class="empty-msg">No playlists found.</div>
+</div>

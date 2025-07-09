@@ -1,0 +1,90 @@
+<div class="search-results-container">
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p class="loading-text">Searching for songs...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage && !isLoading" class="error-container">
+    <mat-icon class="error-icon">error</mat-icon>
+    <p class="error-text">{{ errorMessage }}</p>
+  </div>
+
+  <!-- Search Results -->
+  <div *ngIf="!isLoading && !errorMessage" class="results-content">
+    <!-- Results Header -->
+    <div class="results-header">
+      <h2 class="results-title">
+        <span *ngIf="searchQuery">Search Results for "{{ searchQuery }}"</span>
+        <span *ngIf="!searchQuery">All Songs</span>
+      </h2>
+      <p class="results-count">{{ totalSongs }} songs found</p>
+    </div>
+
+    <!-- Songs Grid -->
+    <div class="songs-grid" *ngIf="songs.length > 0">
+      <mat-card *ngFor="let song of songs" class="song-card">
+        <!-- Song Cover -->
+        <div class="song-cover">
+          <img
+            [src]="getCoverImageUrl(song.coverPicture)"
+            [alt]="song.title"
+            class="cover-image"
+            (error)="onImageError($event)"
+            onerror="this.style.display='none'" />
+          <div class="cover-overlay">
+            <button mat-icon-button class="play-button" (click)="onPlaySong(song)" aria-label="Play song">
+              <mat-icon>play_circle</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Song Info -->
+        <div class="song-info">
+          <h3 class="song-title">{{ song.title }}</h3>
+          <p class="song-artist">{{ song.artist.username }}</p>
+
+          <!-- Genre Chips -->
+          <div class="genre-chips" *ngIf="song.genre && song.genre.length > 0">
+            <mat-chip *ngFor="let genre of song.genre.slice(0, 2)" class="genre-chip">
+              {{ genre }}
+            </mat-chip>
+            <span *ngIf="song.genre.length > 2" class="more-genres"> +{{ song.genre.length - 2 }} more </span>
+          </div>
+
+          <!-- Song Duration -->
+          <p class="song-duration">{{ formatDuration(song.duration) }}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="song-actions">
+          <button mat-icon-button class="action-button" (click)="onAddToPlaylist(song)" aria-label="Add to playlist">
+            <mat-icon>playlist_add</mat-icon>
+          </button>
+          <button mat-icon-button class="action-button" (click)="onFavorite(song)" aria-label="Add to favorites">
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- No Results -->
+    <div *ngIf="songs.length === 0 && !isLoading && !errorMessage" class="no-results">
+      <mat-icon class="no-results-icon">music_off</mat-icon>
+      <h3 class="no-results-title">No songs found</h3>
+      <p class="no-results-text">Try adjusting your search terms or browse all songs</p>
+    </div>
+
+    <!-- Pagination -->
+    <mat-paginator
+      *ngIf="totalSongs > pageSize"
+      [length]="totalSongs"
+      [pageSize]="pageSize"
+      [pageIndex]="currentPage - 1"
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      (page)="onPageChange($event)"
+      class="pagination">
+    </mat-paginator>
+  </div>
+</div>

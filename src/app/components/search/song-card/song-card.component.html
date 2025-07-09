@@ -1,0 +1,25 @@
+<div class="song-card" (mouseenter)="hover = true" (mouseleave)="hover = false">
+  <div class="cover-container">
+    <img class="cover" [src]="getCoverImageUrl(song.coverPicture)" [alt]="song.title" (error)="onImageError()" />
+    <button
+      mat-icon-button
+      class="play-overlay"
+      *ngIf="hover"
+      (click)="onPlay(); $event.stopPropagation()"
+      aria-label="Play song">
+      <mat-icon>play_circle_filled</mat-icon>
+    </button>
+  </div>
+  <div class="song-info">
+    <div class="song-title" title="{{ song.title }}">{{ song.title }}</div>
+    <div class="song-artist" title="{{ song.artist.username }}">{{ song.artist.username }}</div>
+    <div class="song-actions">
+      <button mat-icon-button (click)="onAddToPlaylist(); $event.stopPropagation()" aria-label="Add to playlist">
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onFavorite(); $event.stopPropagation()" aria-label="Favorite">
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

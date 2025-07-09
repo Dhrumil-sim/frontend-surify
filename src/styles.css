@@ -1,0 +1,57 @@
+/* Global dark theme and modern font setup */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --color-bg: #181818;
+  --color-bg-secondary: #232323;
+  --color-card: #242424;
+  --color-primary: #1db954;
+  --color-text: #fff;
+  --color-text-secondary: #b3b3b3;
+  --color-border: #282828;
+  --border-radius: 16px;
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  min-height: 100vh;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: #1ed760;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--color-bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 8px;
+}

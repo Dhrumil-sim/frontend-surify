@@ -1,100 +1,11 @@
 <div class="user-home-container">
-  <app-user-header></app-user-header>
+  <app-user-header (searchEvent)="onSearchEvent($event)"></app-user-header>
 
   <div class="main-content">
     <app-side-bar></app-side-bar>
 
     <div class="content-area">
-      <!-- Welcome Section -->
-      <div class="welcome-section fade-in">
-        <h1 class="welcome-title">Welcome back!</h1>
-        <p class="welcome-subtitle">Discover new music and enjoy your favorite tracks</p>
-      </div>
-
-      <!-- Quick Stats -->
-      <div class="stats-section slide-in">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <mat-icon class="stat-icon">music_note</mat-icon>
-            <div class="stat-content">
-              <h3 class="stat-number">1,247</h3>
-              <p class="stat-label">Songs</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <mat-icon class="stat-icon">album</mat-icon>
-            <div class="stat-content">
-              <h3 class="stat-number">89</h3>
-              <p class="stat-label">Albums</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <mat-icon class="stat-icon">queue_music</mat-icon>
-            <div class="stat-content">
-              <h3 class="stat-number">23</h3>
-              <p class="stat-label">Playlists</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <mat-icon class="stat-icon">favorite</mat-icon>
-            <div class="stat-content">
-              <h3 class="stat-number">156</h3>
-              <p class="stat-label">Favorites</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Recent Activity -->
-      <div class="recent-section slide-in">
-        <h2 class="section-title">Recent Activity</h2>
-        <div class="activity-list">
-          <div class="activity-item">
-            <mat-icon class="activity-icon">play_circle</mat-icon>
-            <div class="activity-content">
-              <p class="activity-text">You listened to "Bohemian Rhapsody" by Queen</p>
-              <span class="activity-time">2 hours ago</span>
-            </div>
-          </div>
-          <div class="activity-item">
-            <mat-icon class="activity-icon">favorite</mat-icon>
-            <div class="activity-content">
-              <p class="activity-text">Added "Hotel California" to favorites</p>
-              <span class="activity-time">4 hours ago</span>
-            </div>
-          </div>
-          <div class="activity-item">
-            <mat-icon class="activity-icon">queue_music</mat-icon>
-            <div class="activity-content">
-              <p class="activity-text">Created playlist "Road Trip Vibes"</p>
-              <span class="activity-time">1 day ago</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Actions -->
-      <div class="actions-section slide-in">
-        <h2 class="section-title">Quick Actions</h2>
-        <div class="actions-grid">
-          <button class="action-button">
-            <mat-icon>search</mat-icon>
-            <span>Discover Music</span>
-          </button>
-          <button class="action-button">
-            <mat-icon>queue_music</mat-icon>
-            <span>My Playlists</span>
-          </button>
-          <button class="action-button">
-            <mat-icon>favorite</mat-icon>
-            <span>Favorites</span>
-          </button>
-          <button class="action-button">
-            <mat-icon>group</mat-icon>
-            <span>Collaborative</span>
-          </button>
-        </div>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

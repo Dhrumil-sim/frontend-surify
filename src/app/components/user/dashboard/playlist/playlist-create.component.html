@@ -1,0 +1,27 @@
+<form [formGroup]="playlistForm" (ngSubmit)="onSubmit()" class="playlist-create-form">
+  <h2>Create Playlist</h2>
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Playlist Name</mat-label>
+    <input matInput formControlName="name" maxlength="50" required />
+    <mat-error *ngIf="playlistForm.get('name')?.hasError('required')">Name is required</mat-error>
+    <mat-error *ngIf="playlistForm.get('name')?.hasError('maxLength')">Max 50 characters</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" maxlength="200"></textarea>
+    <mat-hint align="end">{{ playlistForm.get('description')?.value?.length || 0 }} / 200</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Cover Image URL</mat-label>
+    <input matInput formControlName="coverImage" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="isSubmitting || playlistForm.invalid">
+    <mat-icon>add</mat-icon> Create
+  </button>
+
+  <div *ngIf="successMsg" class="success-msg">{{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+</form>

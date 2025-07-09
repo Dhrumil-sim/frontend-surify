@@ -178,28 +178,25 @@
 
 /* User Home Container */
 .user-home-container {
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  height: 100vh;
   background-color: #fafafa;
 }
 
-/* Main Content Area */
+/* Main Content */
 .main-content {
-  flex: 1;
   display: flex;
-  overflow: hidden;
-  margin-top: 72px; /* Account for fixed header */
+  flex: 1;
+  margin-top: 64px; /* Height of the header */
 }
 
 /* Content Area */
 .content-area {
   flex: 1;
-  padding: 24px;
+  margin-left: 280px; /* Width of the sidebar */
   overflow-y: auto;
   background-color: #fafafa;
-  transition: all 0.3s ease;
 }
 
 /* Welcome Section */
@@ -384,7 +381,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .content-area {
-    padding: 16px;
+    margin-left: 240px;
   }
 
   .welcome-title {
@@ -401,8 +398,13 @@
 }
 
 @media (max-width: 480px) {
+  .main-content {
+    flex-direction: column;
+  }
+
   .content-area {
-    padding: 12px;
+    margin-left: 0;
+    margin-top: 0;
   }
 
   .stats-grid {

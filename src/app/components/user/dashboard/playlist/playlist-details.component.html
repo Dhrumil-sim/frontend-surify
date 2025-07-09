@@ -1,0 +1,18 @@
+<div class="playlist-details-container">
+  <h2>Playlist Songs</h2>
+  <div *ngIf="isLoading" class="loading">Loading songs...</div>
+  <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+  <div class="songs-list" *ngIf="!isLoading && songs.length">
+    <mat-card *ngFor="let song of songs" class="song-card">
+      <div class="song-info">
+        <h3>{{ song.title }}</h3>
+        <p>{{ song.artist?.username }}</p>
+      </div>
+      <div class="song-actions">
+        <button mat-icon-button color="warn" (click)="onRemoveSong(song)"><mat-icon>delete</mat-icon></button>
+      </div>
+    </mat-card>
+  </div>
+  <div *ngIf="!isLoading && !songs.length && !errorMsg" class="empty-msg">No songs in this playlist.</div>
+  <button mat-raised-button color="primary" (click)="onAddSong()"><mat-icon>add</mat-icon> Add Song</button>
+</div>

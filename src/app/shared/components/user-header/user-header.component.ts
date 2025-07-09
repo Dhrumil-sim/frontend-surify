@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,6 +30,8 @@ import { User } from '../../interfaces/userInterfaces/user.intrface';
   ],
 })
 export class UserHeaderComponent implements OnInit {
+  @Output() searchEvent = new EventEmitter<{ query: string; type: string }>();
+
   user: User | null = null;
   searchQuery: string = '';
   avatarError: boolean = false;
@@ -49,9 +51,28 @@ export class UserHeaderComponent implements OnInit {
 
   onSearch(): void {
     if (this.searchQuery.trim()) {
-      // Navigate to search results
+      // Emit search event for parent component to handle
+      this.searchEvent.emit({
+        query: this.searchQuery.trim(),
+        type: 'title',
+      });
+
+      // Also navigate to discover page with search query
       this.router.navigate(['/user-dashboard/discover'], {
-        queryParams: { q: this.searchQuery },
+        queryParams: { q: this.searchQuery.trim() },
+      });
+    }
+  }
+
+  onSearchInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.searchQuery = target.value;
+
+    // Emit search event for real-time search (optional)
+    if (this.searchQuery.trim()) {
+      this.searchEvent.emit({
+        query: this.searchQuery.trim(),
+        type: 'title',
       });
     }
   }

@@ -10,7 +10,12 @@
     <div class="search-section">
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>Search songs, artists, albums...</mat-label>
-        <input matInput [(ngModel)]="searchQuery" (keyup.enter)="onSearch()" placeholder="Search..." />
+        <input
+          matInput
+          [(ngModel)]="searchQuery"
+          (input)="onSearchInput($event)"
+          (keyup.enter)="onSearch()"
+          placeholder="Search..." />
         <mat-icon matSuffix (click)="onSearch()">search</mat-icon>
       </mat-form-field>
     </div>

@@ -13,4 +13,14 @@ import { CommonModule } from '@angular/common';
 })
 export class UserHomePageComponent {
   constructor(private router: Router) {}
+
+  onSearchEvent(event: { query: string; type: string }): void {
+    // Navigate to discover page with search parameters
+    this.router.navigate(['/user-dashboard/discover'], {
+      queryParams: {
+        q: event.query,
+        type: event.type,
+      },
+    });
+  }
 }

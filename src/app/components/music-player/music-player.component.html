@@ -1,0 +1,25 @@
+<div class="music-player" *ngIf="song">
+  <div class="player-info">
+    <img class="cover" [src]="getCoverImageUrl(song.coverPicture)" [alt]="song.title" (error)="onImageError()" />
+    <div class="meta">
+      <div class="title">{{ song.title }}</div>
+      <div class="artist">{{ song.artist?.username }}</div>
+    </div>
+  </div>
+  <div class="player-controls">
+    <button (click)="togglePlay()" class="play-btn">
+      <span *ngIf="!isPlaying">▶️</span>
+      <span *ngIf="isPlaying">⏸️</span>
+    </button>
+    <span class="time">{{ formatTime(currentTime) }}</span>
+    <input type="range" min="0" [max]="duration" [value]="currentTime" (input)="onSeek($event)" class="progress-bar" />
+    <span class="time">{{ formatTime(duration) }}</span>
+    <audio
+      #audioRef
+      [src]="audioUrl"
+      (timeupdate)="onTimeUpdate()"
+      (loadedmetadata)="onLoadedMetadata()"
+      (ended)="onEnded()"
+      style="display: none"></audio>
+  </div>
+</div>

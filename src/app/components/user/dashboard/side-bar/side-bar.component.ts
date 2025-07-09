@@ -1,50 +1,82 @@
-import { Component } from '@angular/core';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 interface MenuItem {
-  icon: string;
   label: string;
+  icon: string;
   route: string;
-  active: boolean;
+  isActive: boolean;
 }
 
 @Component({
   selector: 'app-side-bar',
+  standalone: true,
+  imports: [RouterModule, MatIconModule, MatListModule, MatDividerModule, CommonModule],
   templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.css'],
-  imports: [MatButtonModule, MatIconModule, MatListModule, MatDividerModule, MatSidenavModule, CommonModule],
+  styleUrl: './side-bar.component.css',
 })
-export class SideBarComponent {
-  isExpanded = true;
-
+export class SideBarComponent implements OnInit {
   menuItems: MenuItem[] = [
-    { icon: 'home', label: 'Home', route: '/user-dashboard', active: true },
-    { icon: 'search', label: 'Discover', route: '/user-dashboard/discover', active: false },
-    { icon: 'queue_music', label: 'My Playlists', route: '/user-dashboard/playlists', active: false },
-    { icon: 'favorite', label: 'Favorites', route: '/user-dashboard/favorites', active: false },
-    { icon: 'history', label: 'Recently Played', route: '/user-dashboard/history', active: false },
-    { icon: 'group', label: 'Collaborative', route: '/user-dashboard/collaborative', active: false },
-    { icon: 'person', label: 'Profile', route: '/user-dashboard/profile', active: false },
+    {
+      label: 'Discover',
+      icon: 'explore',
+      route: '/user-dashboard/discover',
+      isActive: false,
+    },
+    {
+      label: 'My Library',
+      icon: 'library_music',
+      route: '/user-dashboard/library',
+      isActive: false,
+    },
+    {
+      label: 'Playlists',
+      icon: 'queue_music',
+      route: '/user-dashboard/playlists',
+      isActive: false,
+    },
+    {
+      label: 'Favorites',
+      icon: 'favorite',
+      route: '/user-dashboard/favorites',
+      isActive: false,
+    },
+    {
+      label: 'Recently Played',
+      icon: 'history',
+      route: '/user-dashboard/recent',
+      isActive: false,
+    },
+    {
+      label: 'Collaborative',
+      icon: 'group',
+      route: '/user-dashboard/collaborative',
+      isActive: false,
+    },
   ];
 
   constructor(private router: Router) {}
 
-  toggleSidebar() {
-    this.isExpanded = !this.isExpanded;
+  ngOnInit(): void {
+    this.updateActiveRoute();
   }
 
-  onMenuItemClick(item: MenuItem) {
-    // Update active state
-    this.menuItems.forEach((menuItem) => (menuItem.active = false));
-    item.active = true;
-
-    // Navigate to route
+  onMenuItemClick(item: MenuItem): void {
+    this.menuItems.forEach((menuItem) => (menuItem.isActive = false));
+    item.isActive = true;
     this.router.navigate([item.route]);
+  }
+
+  private updateActiveRoute(): void {
+    const currentRoute = this.router.url;
+    this.menuItems.forEach((item) => {
+      item.isActive =
+        currentRoute === item.route ||
+        (currentRoute === '/user-dashboard' && item.route === '/user-dashboard/discover');
+    });
   }
 }

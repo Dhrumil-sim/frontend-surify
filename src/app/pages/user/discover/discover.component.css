@@ -1,0 +1,52 @@
+/* Discover Container */
+.discover-container {
+  padding: 24px;
+  background-color: #fafafa;
+  min-height: 100vh;
+}
+
+/* Discover Header */
+.discover-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.discover-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+.discover-subtitle {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .discover-container {
+    padding: 16px;
+  }
+
+  .discover-title {
+    font-size: 24px;
+  }
+
+  .discover-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .discover-container {
+    padding: 12px;
+  }
+
+  .discover-title {
+    font-size: 20px;
+  }
+}
